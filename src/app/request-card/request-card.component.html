@@ -1,0 +1,48 @@
+<div class="request-card">
+    <mat-accordion  multi>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h2 class="card__title">{{request.name}}</h2>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            
+            <div class="card__content">
+                <div class="card__body" [formGroup]="requestForm">
+                    <h2>Body</h2>
+                    <div class="card__body__params" *ngIf="args.length > 0">
+                        <span class="card__body__params__title">Parametrs</span>
+                        <ng-container *ngFor="let argument of args; let i = index">
+                            <mat-form-field  *ngIf="argument.type!=='file'; else fileInputField">
+                                <mat-label>{{argument.name}}</mat-label>
+                                <input
+                                    matInput
+                                    [type]="argument.type"
+                                    [formControlName]="argument.name"
+                                >
+                            </mat-form-field>
+                            <ng-template #fileInputField>
+                                <input hidden (change)="onFileSelected()" #fileInput type="file" id="file">
+                                <button
+                                    type="button"
+                                    mat-raised-button
+                                    (click)="fileInput.click()"
+                                    color="accent"
+                                >Choose Binary Data</button>
+                            </ng-template>
+                        </ng-container>
+                    </div>
+    
+                    <div class="card__body__actions">
+                        <button mat-raised-button color="warn" [disabled]="!requestForm.dirty" (click)="clearForm()">Cancel</button>
+                        <button mat-raised-button color="primary" (click)="sendRequest()" [disabled]="requestForm.invalid">Execute</button>
+                    </div>
+                </div>
+    
+                <div class="card__response">
+                    <h2>Response</h2>
+                </div>
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>
