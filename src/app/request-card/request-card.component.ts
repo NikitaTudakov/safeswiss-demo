@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { AppArgument, AppRequest } from 'src/interface/app.interface';
+import { AppArgument, AppRequest, DropDownOption } from 'src/interface/app.interface';
 
 @Component({
     selector: 'app-request-card',
@@ -15,6 +15,12 @@ export class RequestCardComponent implements OnInit {
     get args(): AppArgument[] {
         return this.request.args
     }
+
+    public messageOptionList: DropDownOption[] = [
+        {name: 'Image', value:1},
+        {name: 'Video', value:5},
+        {name: 'Document', value:6}
+    ];
 
     constructor() { }
 

@@ -25,7 +25,7 @@ export class AppComponent {
             method:'sendMessage'
         },
         {   name:'Send image\/file message',
-            args:[{name:'chatId',type:'number'},{name:'messageType',type:'number'},{name:'binaryData',type:'file'}],
+            args:[{name:'chatId',type:'number'},{name:'messageType',type:'message-select'},{name:'binaryData',type:'file'}],
             method:'sendFileMessage'
         },
         {   name:'Create chat\chat group',

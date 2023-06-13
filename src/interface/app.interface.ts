@@ -8,3 +8,8 @@ export interface AppArgument {
     name: string,
     type: string,
 }
+
+export interface DropDownOption {
+    name: string,
+    value: string | number
+}

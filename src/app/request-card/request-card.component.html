@@ -13,28 +13,45 @@
                     <div class="card__body__params" *ngIf="args.length > 0">
                         <span class="card__body__params__title">Parametrs</span>
                         <ng-container *ngFor="let argument of args; let i = index">
-                            <mat-form-field  *ngIf="argument.type!=='file'; else fileInputField">
-                                <mat-label>{{argument.name}}</mat-label>
-                                <input
-                                    matInput
-                                    [type]="argument.type"
-                                    [formControlName]="argument.name"
-                                >
-                            </mat-form-field>
-                            <ng-template #fileInputField>
-                                <input hidden (change)="onFileSelected()" #fileInput type="file" id="file">
-                                <button
-                                    type="button"
-                                    mat-raised-button
-                                    (click)="fileInput.click()"
-                                    color="accent"
-                                >Choose Binary Data</button>
-                            </ng-template>
+                            <ng-container [ngSwitch]="argument.type">
+                                <mat-form-field  *ngSwitchCase="'message-select'">
+                                    <mat-label>{{argument.name}}</mat-label>
+                                    <mat-select [formControlName]="argument.name">
+                                        <mat-option *ngFor="let option of messageOptionList" [value]="option.value">
+                                            {{option.name}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <ng-container *ngSwitchCase="'file'">
+                                    <input hidden (change)="onFileSelected()" #fileInput type="file" id="file">
+                                    <button
+                                        type="button"
+                                        mat-raised-button
+                                        (click)="fileInput.click()"
+                                        color="accent"
+                                    >Choose Binary Data</button>
+                                </ng-container>
+                                <mat-form-field  *ngSwitchDefault>
+                                    <mat-label>{{argument.name}}</mat-label>
+                                    <input
+                                        matInput
+                                        [type]="argument.type"
+                                        [formControlName]="argument.name"
+                                    >
+                                </mat-form-field>
+                            </ng-container>
                         </ng-container>
                     </div>
-    
+
                     <div class="card__body__actions">
-                        <button mat-raised-button color="warn" [disabled]="!requestForm.dirty" (click)="clearForm()">Cancel</button>
+                        <button
+                            mat-raised-button color="warn"
+                            *ngIf="args.length > 0"
+                            [disabled]="!requestForm.dirty"
+                            (click)="clearForm()"
+                        >
+                            Cancel
+                        </button>
                         <button mat-raised-button color="primary" (click)="sendRequest()" [disabled]="requestForm.invalid">Execute</button>
                     </div>
                 </div>
