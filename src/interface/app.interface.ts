@@ -7,6 +7,7 @@ export interface AppRequest {
 export interface AppArgument {
     name: string,
     type: string,
+    required?: boolean
 }
 
 export interface DropDownOption {
@@ -38,4 +39,10 @@ export interface getChatResp {
     sent: boolean,
     when: string,
     avatar: Blob
+}
+
+export interface message {
+    when: string;
+    user: string;
+    message: string;
 }

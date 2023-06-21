@@ -10,11 +10,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from '@angular/material/select';
+import { ChatHistoryComponent } from './chat-history/chat-history.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RequestCardComponent
+    RequestCardComponent,
+    ChatHistoryComponent
   ],
   imports: [
     BrowserModule,

@@ -316,9 +316,6 @@ class WebClient {
       console.log(`-- req ${bytes.length}, webreq[${wr}], req=${request}`)
       cryptoBytes = cryptManager.encrypt(this.senderKey, bytes)
       console.log('-- req 2', cryptoBytes, this.senderKey)
-      if (action == 113) {
-        debugger
-      }
     }
 
     const cblen = (cryptoBytes) ? cryptoBytes.length : 0

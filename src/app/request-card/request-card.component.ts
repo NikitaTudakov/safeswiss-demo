@@ -44,9 +44,6 @@ export class RequestCardComponent implements OnInit {
             case RequestNamesEnum.ADD_CONTACT:
                 this.reply = await this.webClient.addContact(this.requestForm.get('contactId')?.value,this.requestForm.get('contact name')?.value);
                 break;
-            case RequestNamesEnum.GET_CHATS:
-                this.reply = await this.webClient.getChats();
-                break;
             case RequestNamesEnum.SEND_TEXT_MESSAGE:
                 this.reply = await this.webClient.sendMessage(this.requestForm.get('chatId')?.value,this.requestForm.get('text')?.value);
                 break;
@@ -58,8 +55,11 @@ export class RequestCardComponent implements OnInit {
             case RequestNamesEnum.CREATE_CHAT:
                 this.reply = await this.webClient.createChat(this.requestForm.get('userId')?.value.split(','));
                 break;
+            case RequestNamesEnum.GET_CONTACTS:
+                    this.reply = await this.webClient.getContacts();
+                    break;
             default:
-                this.reply = await this.webClient.authorize('nsvw', 'Qwerty1');
+                this.reply = await this.webClient.getChats();
         }
     }
 
@@ -70,21 +70,22 @@ export class RequestCardComponent implements OnInit {
 
     public updateFileInput(): void {
         const files = this.fetchFilesFromInput();
-        console.log(files);
         if(files) {
-            console.log('valid');
             this.isValidFile = true;
             this.requestForm.get('binaryData')?.patchValue(files);
             this.requestForm.markAsDirty();
         } else {
-            console.log('not valid');
             this.isValidFile = false;
         }
     }
 
     private _initRequestFormControls(): void {
         this.args.forEach(argument => {
-            this.requestForm.addControl(argument.name, new FormControl('',Validators.required));
+            if(argument.required === false) {
+                this.requestForm.addControl(argument.name, new FormControl(''));
+            } else {
+                this.requestForm.addControl(argument.name, new FormControl('',Validators.required));
+            }
         });
     }
 

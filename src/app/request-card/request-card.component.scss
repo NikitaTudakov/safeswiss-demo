@@ -45,19 +45,35 @@
     }
 
     .card__response {
+        flex-grow: 1;
+
         &_auth {
             display: flex;
             flex-direction: column;
             gap: 4px;
         }
 
-        &_get-chats {
+        &_table {
+            padding: 10px;
+            border: 1px solid rgb(226, 226, 226);
+            border-radius: 8px;
+
+            &__row {
+                display: flex;
+                justify-content: space-between;
+                border-bottom: 1px solid rgb(226, 226, 226);
+                margin-bottom: 6px;
+            }
+
             span {
                 font-family: sans-serif;
                 font-size: 16px;
                 margin-bottom: 2px;
-                border-bottom: 1px solid rgb(226, 226, 226);
+            }
 
+            &__title {
+                font-size: 18px;
+                font-weight: 700;
             }
         }
     }

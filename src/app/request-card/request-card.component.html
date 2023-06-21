@@ -81,20 +81,24 @@
                                 </ng-template>
                             </div>
                             <div *ngSwitchCase="requestTypes.ADD_CONTACT">
-                                <span>{{reply === 0 ? 'User was added successfully' : 'Bad request'}}</span>
+                                <span>{{reply === 0 ? 'User was added successfully!' : 'User not Found.'}}</span>
                             </div>
-                            <div *ngSwitchCase="requestTypes.GET_CHATS" class="card__response_get-chats">
-                                <div *ngFor="let chat of reply">
-                                    <span><b>chat Id:</b> {{chat.chatId}}</span>
+                            <div *ngSwitchCase="requestTypes.GET_CHATS" class="card__response_table">
+                                <div *ngFor="let chat of reply" class="card__response_table__row">
+                                    <span class="card__response_table__title">Chat Id:</span>
+                                    <span>{{chat.chatId}}</span>
                                 </div>
                             </div>
-                            <div *ngSwitchCase="requestTypes.SEND_TEXT_MESSAGE">
-                                <span>Text was sent successfully</span>
+                            <div *ngSwitchCase="requestTypes.GET_CONTACTS" class="card__response_table">
+                                <div *ngFor="let contact of reply" class="card__response_table__row">
+                                    <span class="card__response_table__title">Contact Id:</span>
+                                    <span>{{contact.contactId}}</span>
+                                </div>
                             </div>
-                            <div *ngSwitchCase="requestTypes.SEND_FILE">...</div>
-                            <div *ngSwitchDefault>
+                            <div *ngSwitchCase="requestTypes.CREATE_CHAT">
                                 <span>New chat has been added. The new chat id is: {{reply}}</span>
                             </div>
+                            <div *ngSwitchDefault>Message was sent successfully, please check chat history.</div>
                         </div>
                     </ng-container>
                 </div>
