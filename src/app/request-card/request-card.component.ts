@@ -1,6 +1,6 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { AppArgument, AppRequest, DropDownOption } from 'src/interface/app.interface';
+import { AppArgument, AppRequest, DropDownOption, getChatResp } from 'src/interface/app.interface';
 import { RequestNamesEnum } from '../enum/request-names.enum';
 
 @Component({
@@ -13,6 +13,7 @@ export class RequestCardComponent implements OnInit {
     @Input() webClient: any;
     @Input() chatIdList!: number[];
     @ViewChild('fileInput') fileInput!: ElementRef;
+    @Output() onUpdateChatList: EventEmitter<void> = new EventEmitter();
     public requestForm!: FormGroup;
     public requestTypes = RequestNamesEnum;
     public reply: any = null;
@@ -58,6 +59,7 @@ export class RequestCardComponent implements OnInit {
                 break;
             case RequestNamesEnum.CREATE_CHAT:
                 this.reply = await this.webClient.createChat(this.requestForm.get('userId')?.value.split(','));
+                this.onUpdateChatList.emit()
                 break;
             case RequestNamesEnum.GET_CONTACTS:
                     this.reply = await this.webClient.getContacts();

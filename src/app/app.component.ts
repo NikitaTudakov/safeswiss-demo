@@ -45,12 +45,16 @@ export class AppComponent implements OnInit {
         }
     ]
 
-    async ngOnInit(): Promise<void> {
+    public async ngOnInit(): Promise<void> {
         this.webClient = new WebClient();
         await this.webClient.connect('ws://localhost:10108');
+        this.updateChatList();
+        this._chatChangeSub();
+    }
+
+    public async updateChatList() {
         const getCharResp = await this.webClient.getChats();
         this.chatIdList = getCharResp.map((chat: getChatResp) => chat.chatId);
-        this._chatChangeSub();
     }
 
     private async _chatChangeSub() {
