@@ -11,7 +11,7 @@
                 <div class="card__body" [formGroup]="requestForm">
                     <h2>Body</h2>
                     <div class="card__body__params" *ngIf="args.length > 0">
-                        <span class="card__body__params__title">Parametrs</span>
+                        <span class="card__body__params__title">Parameters</span>
                         <ng-container *ngFor="let argument of args; let i = index">
                             <ng-container [ngSwitch]="argument.type">
                                 <mat-form-field  *ngSwitchCase="'message-select'">
