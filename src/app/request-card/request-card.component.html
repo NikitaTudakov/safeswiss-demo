@@ -49,6 +49,10 @@
                                 </mat-form-field>
                             </ng-container>
                         </ng-container>
+                        <div *ngIf="isCreateChatCard" class="card__body__params__tip">
+                            <span>*</span>
+                            <span >type user id for single chat or ids separated by comma for group chat</span>
+                        </div>
                     </div>
 
                     <div class="card__body__actions">

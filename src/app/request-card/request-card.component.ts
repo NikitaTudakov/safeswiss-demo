@@ -22,6 +22,10 @@ export class RequestCardComponent implements OnInit {
         return this.request.args
     }
 
+    get isCreateChatCard(): boolean {
+        return this.request.name === RequestNamesEnum.CREATE_CHAT
+    }
+
     public messageOptionList: DropDownOption[] = [
         {name: 'Image', value:1},
         {name: 'Video', value:5},
