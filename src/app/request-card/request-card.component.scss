@@ -15,6 +15,9 @@
 
     .card__body {
         width: 50%;
+        flex-direction: column;
+        display: flex;
+        justify-content: space-between;
 
         &__params {
             border: 2px solid rgb(226, 226, 226);
@@ -37,6 +40,24 @@
 
             button {
                 width: 50%;
+            }
+        }
+    }
+
+    .card__response {
+        &_auth {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        &_get-chats {
+            span {
+                font-family: sans-serif;
+                font-size: 16px;
+                margin-bottom: 2px;
+                border-bottom: 1px solid rgb(226, 226, 226);
+
             }
         }
     }

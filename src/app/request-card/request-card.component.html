@@ -22,8 +22,16 @@
                                         </mat-option>
                                     </mat-select>
                                 </mat-form-field>
+                                <mat-form-field  *ngSwitchCase="'chatId-select'">
+                                    <mat-label>{{argument.name}}</mat-label>
+                                    <mat-select [formControlName]="argument.name">
+                                        <mat-option *ngFor="let option of chatIdList" [value]="option">
+                                            {{option}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
                                 <ng-container *ngSwitchCase="'file'">
-                                    <input hidden (change)="onFileSelected()" #fileInput type="file" id="file">
+                                    <input hidden (change)="updateFileInput()" #fileInput type="file" id="file">
                                     <button
                                         type="button"
                                         mat-raised-button
@@ -58,6 +66,37 @@
     
                 <div class="card__response">
                     <h2>Response</h2>
+                    <ng-container *ngIf="reply !== null">
+                        <div [ngSwitch]="this.request.name">
+                            <div *ngSwitchCase="requestTypes.AUTHORIZE" class="card__response_auth">
+                                <ng-container *ngIf="reply.state === 0; else loginError">
+                                    <span>contactId: {{reply.contactId}}</span>
+                                    <span>email: {{reply.email}}</span>
+                                    <span>name: {{reply.name}}</span>
+                                    <span>phone: {{reply.phone}}</span>
+                                    <span>state: {{reply.state}}</span>
+                                </ng-container>
+                                <ng-template #loginError>
+                                    <h4 [style.color]="'red'">Invalid login or password. Please try again to login.</h4>
+                                </ng-template>
+                            </div>
+                            <div *ngSwitchCase="requestTypes.ADD_CONTACT">
+                                <span>{{reply === 0 ? 'User was added successfully' : 'Bad request'}}</span>
+                            </div>
+                            <div *ngSwitchCase="requestTypes.GET_CHATS" class="card__response_get-chats">
+                                <div *ngFor="let chat of reply">
+                                    <span><b>chat Id:</b> {{chat.chatId}}</span>
+                                </div>
+                            </div>
+                            <div *ngSwitchCase="requestTypes.SEND_TEXT_MESSAGE">
+                                <span>Text was sent successfully</span>
+                            </div>
+                            <div *ngSwitchCase="requestTypes.SEND_FILE">...</div>
+                            <div *ngSwitchDefault>
+                                <span>New chat has been added. The new chat id is: {{reply}}</span>
+                            </div>
+                        </div>
+                    </ng-container>
                 </div>
             </div>
         </mat-expansion-panel>

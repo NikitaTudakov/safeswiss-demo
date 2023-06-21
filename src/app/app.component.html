@@ -2,7 +2,8 @@
   <h1>Web demo application</h1>
   <app-request-card *ngFor="let request of requests"
     [request]="request"
+    [webClient]="webClient"
+    [chatIdList]="chatIdList"
   >
-
   </app-request-card>
 </div>
